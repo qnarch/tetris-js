@@ -1,5 +1,14 @@
 "use strict";
 
+/**
+shape.js
+
+Here is the definitions of all the possible blocks and a definition
+of the shape prototype.
+
+*/
+
+
 //Shape definitions
 const possibleShapes = [];
 const iShape = [];
@@ -10,8 +19,8 @@ const zShape = [];
 const zprimeShape = [];
 const sqaureShape = [];
 
-//An 'I' shape, and all rotations
 
+//An 'I' shape, and all rotations
 const iRot1 = [];
 iRot1[0] = [0, 0, 0, 0];
 iRot1[1] = [1, 1, 1, 1];
