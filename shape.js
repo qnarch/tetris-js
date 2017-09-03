@@ -4,7 +4,7 @@
 shape.js
 
 Here is the definitions of all the possible blocks and a definition
-of the shape prototype.
+of the shape prototype. The rotation is *anticlockwise*.
 
 */
 
@@ -41,7 +41,7 @@ tRot1[2] = [0, 0, 0];
 
 const tRot2 = [];
 tRot2[0] = [0, 1, 0];
-tRot2[1] = [1, 1, 0];
+tRot2[1] = [0, 1, 1];
 tRot2[2] = [0, 1, 0];
 
 const tRot3 = [];
@@ -51,7 +51,7 @@ tRot3[2] = [0, 1, 0];
 
 const tRot4 = [];
 tRot4[0] = [0, 1, 0];
-tRot4[1] = [0, 1, 1];
+tRot4[1] = [1, 1, 0];
 tRot4[2] = [0, 1, 0];
 
 //An 'L' shape, and all rotations
