@@ -54,7 +54,11 @@ myState.preload = function(){
 };
 
 myState.create = function(){
+<<<<<<< HEAD
     Kiwi.State.prototype.create.call(this);
+=======
+    Kiwi.State.prototype.create.call(this);s
+>>>>>>> e3b283748740b7498ebf4c023564a10dbaccb82d
                 //this.logo = new Kiwi.GameObjects.StaticImage(this, this.textures["logo"], 100, 100);
                 //this.secondlogo = new Kiwi.GameObjects.StaticImage(this, this.textures["logo"], 200, 300);
                 //this.addChild(this.logo);
