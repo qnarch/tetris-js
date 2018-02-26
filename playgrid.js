@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // First - the subclass constructor
 function PlayGrid (state){
@@ -36,7 +36,7 @@ PlayGrid.prototype.update = function() {
                     if (y >= this.sizeY - 1 || this.grid[x][y+1] == 2) {
                         this.fillOutActiveShape(2); // 2 is reserved for fallen blocks for now
 
-			//row clear check
+                        //row clear check
                         for (var k=0;k<this.sizeY;k++) {
                             for (var l=0;l<this.sizeX;l++) {
                                 if (this.grid[l][k] != 2) {
@@ -66,7 +66,7 @@ PlayGrid.prototype.update = function() {
                 }
             }
         }
-        
+
         this.updateActivePos(0, 1);
         this.time = new Date().getTime();
     }
@@ -116,11 +116,11 @@ PlayGrid.prototype.fillOutActiveShape  = function(int) {
         for (var j=0;j<this.activeShape.table[i].length;j++) {
             if(this.activeShape.table[i][j] == 1) {
                 var x = this.activePosX + i;
-		var y = this.activePosY + j;
+                var y = this.activePosY + j;
                 this.grid[x][y] = int;
             }
         }
-    }  
+    }
 }
 
 PlayGrid.prototype.checkCollision = function(deltaX, deltaY, nextTable) {
