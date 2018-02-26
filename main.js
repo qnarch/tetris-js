@@ -5,6 +5,18 @@ var myState = new Kiwi.State('myState');
 
 let playGrid = new PlayGrid(myState);
 
+var connection = new WebSocket('ws://localhost:12345');
+connection.onopen = function (event) {
+  window.alert("Connected to server!");
+  connection.send("Client connected!");
+};
+
+connection.sendAction = function(actionStr) {
+    let msgDict = { "action":actionStr }
+    let msg = JSON.stringify(msgDict);
+    this.send(msg);
+};
+
 myState.preload = function(){
     Kiwi.State.prototype.preload.call(this);
     this.addImage('bg','bg.png');
@@ -12,6 +24,14 @@ myState.preload = function(){
     this.leftKey = Kiwi.Input.Keycodes.LEFT;
     this.rightKey = Kiwi.Input.Keycodes.RIGHT;
     this.upKey = Kiwi.Input.Keycodes.UP;
+    this.downKey = Kiwi.Input.Keycodes.DOWN;
+    this.spaceKey = Kiwi.Input.Keycodes.SPACEBAR;
+    this.special1Key = Kiwi.Input.Keycodes.ONE;
+    this.special2Key = Kiwi.Input.Keycodes.TWO;
+    this.special3Key = Kiwi.Input.Keycodes.THREE;
+    this.special4Key = Kiwi.Input.Keycodes.FOUR;
+    this.special5Key = Kiwi.Input.Keycodes.FIVE;
+
 }
 
 myState.create = function(){
@@ -61,14 +81,38 @@ myState.onPress = function(keyCode) {
     switch (keyCode) {
         case this.leftKey:
             playGrid.updateActivePos(-1,0);
+            connection.sendAction('left');
             break;
         case this.rightKey:
             playGrid.updateActivePos(1,0);
+            connection.sendAction('right');
             break;
         case this.upKey:
+            connection.sendAction('rotate');
             playGrid.rotateActiveShape();
             break;
-    }   
+        case this.downKey:
+            connection.sendAction('down');
+            break;
+        case this.spaceKey:
+            connection.sendAction('harddrop');
+            break;
+        case this.special1Key:
+            connection.sendAction('special1');
+            break;
+        case this.special2Key:
+            connection.sendAction('special2');
+            break;
+        case this.special3Key:
+            connection.sendAction('special3');
+            break;
+        case this.special4Key:
+            connection.sendAction('special4');
+            break;
+        case this.special5Key:
+            connection.sendAction('special5');
+            break;
+    }
 };
 
 game.states.addState(myState, true);
