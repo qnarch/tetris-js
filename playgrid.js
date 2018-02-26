@@ -60,10 +60,8 @@ PlayGrid.prototype.update = function() {
                                 console.log("GAME OVER");
                             }
                         }
+                        this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);
 
-                        this.activeShape = new Shape(this.state, Math.floor(Math.random() * (6 - 0 + 1)) + 0);
-                        this.activePosX = 3;
-                        this.activePosY = 0;
                     }
                 }
             }
@@ -72,6 +70,22 @@ PlayGrid.prototype.update = function() {
         this.updateActivePos(0, 1);
         this.time = new Date().getTime();
     }
+}
+
+PlayGrid.prototype.setBoard = function(currentBoard) {
+    for (var i=0;i<this.sizeX;i++) {
+        this.grid[i] = [];
+        for (var j=0;j<this.sizeY;j++) {
+            this.grid[i][j] = currentBoard[i][j];
+        }
+    }
+    this.fillOutActiveShape(1);
+}
+
+PlayGrid.prototype.resetActiveShape = function(index) {
+    this.activeShape = new Shape(this.state, index);
+    this.activePosX = 3;
+    this.activePosY = 0;
 }
 
 PlayGrid.prototype.updateActivePos = function(deltaX, deltaY) {

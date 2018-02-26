@@ -17,6 +17,24 @@ connection.sendAction = function(actionStr) {
     this.send(msg);
 };
 
+connection.onmessage = function(e){
+    window.alert(e.data);
+    var server_message = e.data;
+    var messageJson = JSON.parse(server_message);
+
+    var activeShapeIndex = messageJson.activeShape;
+    if (activeShapeIndex) {
+        playGrid.resetActiveShape(activeShapeIndex);
+    }
+
+    var currentBoard = messageJson.currentBoard;
+    if (currentBoard) {
+        playGrid.setBoard(currentBoard);
+    }
+
+
+}
+
 myState.preload = function(){
     Kiwi.State.prototype.preload.call(this);
     this.addImage('bg','bg.png');
@@ -31,6 +49,7 @@ myState.preload = function(){
     this.special3Key = Kiwi.Input.Keycodes.THREE;
     this.special4Key = Kiwi.Input.Keycodes.FOUR;
     this.special5Key = Kiwi.Input.Keycodes.FIVE;
+    this.testKey = Kiwi.Input.Keycodes.T;
 
 }
 
@@ -111,6 +130,9 @@ myState.onPress = function(keyCode) {
             break;
         case this.special5Key:
             connection.sendAction('special5');
+            break;
+        case this.testKey:
+            connection.sendAction('test');
             break;
     }
 };
