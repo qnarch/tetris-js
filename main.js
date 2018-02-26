@@ -64,9 +64,9 @@ myState.create = function(){
     this.game.input.keyboard.onKeyDown.add(myState.onPress, this);
 
     this.blocksArray = [];
-    for (var i=0;i<playGrid.sizeX;i++) {
+    for (let i=0;i<playGrid.sizeX;i+=1) {
         this.blocksArray[i] = [];
-        for (var j=0;j<playGrid.sizeY;j++) {
+        for (let j=0;j<playGrid.sizeY;j+=1) {
             this.blocksArray[i][j] = new Kiwi.GameObjects.StaticImage(this, this.textures["bg"], 10 + i*24, 10 + j*24);
             this.addChild(this.blocksArray[i][j]);
         }
@@ -82,8 +82,8 @@ myState.update = function(){
     playGrid.update();
 
     //draw
-    for (var i=0;i<playGrid.sizeX;i++) {
-        for (var j=0;j<playGrid.sizeY;j++) {
+    for (let i=0;i<playGrid.sizeX;i+=1) {
+        for (let j=0;j<playGrid.sizeY;j+=1) {
             if (playGrid.grid[i][j] == 0) {
                 this.blocksArray[i][j].atlas = this.textures["bg"];
             }
