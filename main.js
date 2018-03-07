@@ -25,6 +25,10 @@ connection.sendAction = function(typeStr, valueStr) {
     this.send(msg);
 };
 
+/*
+* Handler for incoming messages from the TetrisSlinger server. Do not call from this application.
+* @param {Event} e
+*/
 connection.onmessage = function(e){
     window.alert(e.data);
     var server_message = e.data;
@@ -55,10 +59,12 @@ myState.preload = function(){
     this.downKey = Kiwi.Input.Keycodes.DOWN;
     this.spaceKey = Kiwi.Input.Keycodes.SPACEBAR;
     this.special1Key = Kiwi.Input.Keycodes.ONE;
+/*
     this.special2Key = Kiwi.Input.Keycodes.TWO;
     this.special3Key = Kiwi.Input.Keycodes.THREE;
     this.special4Key = Kiwi.Input.Keycodes.FOUR;
     this.special5Key = Kiwi.Input.Keycodes.FIVE;
+*/
     this.testKey = Kiwi.Input.Keycodes.T;
 
 };
@@ -143,6 +149,7 @@ myState.onPress = function(keyCode) {
         case this.testKey:
             connection.sendAction("test");
             break;
+*/
     }
 };
 

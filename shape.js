@@ -1,13 +1,9 @@
 "use strict";
 
 /**
-shape.js
-
-Here is the definitions of all the possible blocks and a definition
-of the shape prototype. The rotation is *anticlockwise*.
-
-*/
-
+ * @file Here is the definitions of all the possible blocks and a definition of the shape prototype. The rotation is counter-clockwise.
+ * @author Alexander Hjelm <alexander-hjelm@tutanota.com>
+ */
 
 //Shape definitions
 const possibleShapes = {};
@@ -96,7 +92,7 @@ lprimeRot4[0] = [0, 0, 1];
 lprimeRot4[1] = [0, 0, 1];
 lprimeRot4[2] = [0, 1, 1];
 
-//A 'z' shape, and all rotations
+//A 'Z' shape, and all rotations
 const zRot1 = [];
 zRot1[0] = [0, 0, 0];
 zRot1[1] = [1, 1, 0];
@@ -107,7 +103,7 @@ zRot2[0] = [0, 0, 1];
 zRot2[1] = [0, 1, 1];
 zRot2[2] = [0, 1, 0];
 
-//A mirrored 'z' shape, and all rotations
+//A mirrored 'Z' shape, and all rotations
 const zprimeRot1 = [];
 zprimeRot1[0] = [0, 0, 0];
 zprimeRot1[1] = [0, 1, 1];
@@ -171,12 +167,19 @@ function Shape (state, shapeStr) {
     this.table = this.shape[0];
 }
 
+/**
+* Rotate this shape by 90 degrees counter-clockwise.
+*/
 Shape.prototype.rotate = function () {
     var nextIndex = this.getNextRotIndex();
     this.table = this.shape[nextIndex];
     this.currentRot = nextIndex;
 };
 
+/**
+* Return the index of the next rotation matrix permutation of this shape.
+* @return {int} Index of the next rotation matrix.
+*/
 Shape.prototype.getNextRotIndex = function () {
     return ( this.currentRot + 1 ) % this.shape.length; //x = (x+1) % {number of rotations}
 };
