@@ -21,7 +21,7 @@ function PlayGrid (state){
         }
     }
 
-    this.activeShape = new Shape(this.state, 0);
+    this.activeShape = new Shape(this.state, "I-block");
     this.fillOutActiveShape(1);
 }
 
@@ -60,8 +60,8 @@ PlayGrid.prototype.update = function() {
                                 console.log("GAME OVER");
                             }
                         }
-                        this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);
-
+                        //this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);
+			this.resetActiveShape("S-block");
                     }
                 }
             }
@@ -73,17 +73,32 @@ PlayGrid.prototype.update = function() {
 }
 
 PlayGrid.prototype.setBoard = function(currentBoard) {
+    
     for (let i=0;i<this.sizeX;i+=1) {
         this.grid[i] = [];
         for (let j=0;j<this.sizeY;j+=1) {
             this.grid[i][j] = currentBoard[i][j];
         }
     }
+    
+    /*
+    for (let i=0;i<this.sizeX;i+=1) {
+        this.grid[i] = [];
+        for (let j=0;j<this.sizeY;j+=1) {
+            this.grid[i][j] = currentBoard[i*10 + j];
+        }
+    }
+    */
     this.fillOutActiveShape(1);
 }
 
-PlayGrid.prototype.resetActiveShape = function(index) {
-    this.activeShape = new Shape(this.state, index);
+/*
+* Set the active shape of this PlayGrid and reset it's position to the top center.
+* @param {String} shapeStr - A key representing the shape to be created. Accepted values:
+*    "I-block", "T-block", "L-block", "RevL-block", "Z-block", "RevZ-block", "S-block".
+*/
+PlayGrid.prototype.resetActiveShape = function(shapeStr) {
+    this.activeShape = new Shape(this.state, shapeStr);
     this.activePosX = 3;
     this.activePosY = 0;
 }
@@ -103,7 +118,7 @@ PlayGrid.prototype.updateActivePos = function(deltaX, deltaY) {
 PlayGrid.prototype.rotateActiveShape = function() {
 
     //Collision check
-     let nextTable = this.activeShape.shape[this.activeShape.getNextRotIndex()];
+    let nextTable = this.activeShape.shape[this.activeShape.getNextRotIndex()];
     if (this.checkCollision(0, 0, nextTable)) { return; }
 
     this.fillOutActiveShape(0);

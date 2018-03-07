@@ -10,7 +10,7 @@ of the shape prototype. The rotation is *anticlockwise*.
 
 
 //Shape definitions
-const possibleShapes = [];
+const possibleShapes = {};
 const iShape = [];
 const tShape = [];
 const lShape = [];
@@ -118,19 +118,19 @@ zprimeRot2[0] = [1, 0, 0];
 zprimeRot2[1] = [1, 1, 0];
 zprimeRot2[2] = [0, 1, 0];
 
-//A 'square' shape, and all rotations
+//A square shape, and all rotations
 const squareRot1 = [];
 squareRot1[0] = [0, 1, 1];
 squareRot1[1] = [0, 1, 1];
 squareRot1[2] = [0, 0, 0];
 
-possibleShapes[0] = iShape;
-possibleShapes[1] = tShape;
-possibleShapes[2] = lShape;
-possibleShapes[3] = lprimeShape;
-possibleShapes[4] = zShape;
-possibleShapes[5] = zprimeShape;
-possibleShapes[6] = sqaureShape;
+possibleShapes["I-block"] = iShape;
+possibleShapes["T-block"] = tShape;
+possibleShapes["L-block"] = lShape;
+possibleShapes["RevL-block"] = lprimeShape;
+possibleShapes["Z-block"] = zShape;
+possibleShapes["RevZ-block"] = zprimeShape;
+possibleShapes["S-block"] = sqaureShape;
 
 iShape[0] = iRot1;
 iShape[1] = iRot2;
@@ -158,17 +158,21 @@ zprimeShape[1] = zprimeRot2;
 
 sqaureShape[0] = squareRot1;
 
-
-function Shape (state, shapeIndex) {
+/*
+* Create a shape.
+* @param {Kiwi.State} state - The game state variable.
+* @param {String} shapeStr - A key representing the shape to be created. Accepted values:
+*    "I-block", "T-block", "L-block", "RevL-block", "Z-block", "RevZ-block", "S-block".
+*/
+function Shape (state, shapeStr) {
     this.state = state;
-    this.shape = possibleShapes[shapeIndex];
+    this.shape = possibleShapes[shapeStr];
     this.currentRot = 0;
     this.table = this.shape[0];
 }
 
 Shape.prototype.rotate = function () {
     var nextIndex = this.getNextRotIndex();
-
     this.table = this.shape[nextIndex];
     this.currentRot = nextIndex;
 };

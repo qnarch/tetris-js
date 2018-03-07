@@ -13,8 +13,14 @@ connection.onopen = function (event) {
     connection.send("Client connected!");
 };
 
-connection.sendAction = function(actionStr) {
-    var msgDict = { "action":actionStr };
+/*
+* Send the desired action to the TetrisSlinger server.
+* @param {String} typeStr - The action type.
+* @param {String} valueStr - The value.
+* @see {@link https://knark.io/tetrisslinger-docs/com.html} for further information.
+*/
+connection.sendAction = function(typeStr, valueStr) {
+    var msgDict = { "version":comVersion, "type":typeStr "value":valueStr };
     var msg = JSON.stringify(msgDict);
     this.send(msg);
 };
@@ -22,19 +28,21 @@ connection.sendAction = function(actionStr) {
 connection.onmessage = function(e){
     window.alert(e.data);
     var server_message = e.data;
-    var messageJson = JSON.parse(server_message);
+    var message = JSON.parse(server_message);
 
-    var activeShapeIndex = messageJson.activeShape;
-    if (activeShapeIndex) {
-        playGrid.resetActiveShape(activeShapeIndex);
+    if (!message.response_type) {
+        return;
     }
 
-    var currentBoard = messageJson.currentBoard;
-    if (currentBoard) {
-        playGrid.setBoard(currentBoard);
+    switch(message.response_type) {
+        case "board":
+            playGrid.resetActiveShape(message.value);
+            break;
+        
+        case "active_block":
+            playGrid.setBoard(message.value);
+            break;
     }
-
-
 };
 
 myState.preload = function(){
@@ -100,25 +108,26 @@ myState.onPress = function(keyCode) {
     switch (keyCode) {
         case this.leftKey:
             playGrid.updateActivePos(-1,0);
-            connection.sendAction("left");
+            connection.sendAction("move_active_block", "left");
             break;
         case this.rightKey:
             playGrid.updateActivePos(1,0);
-            connection.sendAction("right");
+            connection.sendAction("move_active_block", "right");
             break;
         case this.upKey:
-            connection.sendAction("rotate");
+            connection.sendAction("move_active_block", "rotate");
             playGrid.rotateActiveShape();
             break;
         case this.downKey:
-            connection.sendAction("down");
+            connection.sendAction("move_active_block", "down");
             break;
         case this.spaceKey:
-            connection.sendAction("harddrop");
+            connection.sendAction("move_active_block", "hard_drop");
             break;
-        case this.special1Key:
+        case this.specialKey:
             connection.sendAction("special1");
             break;
+/*
         case this.special2Key:
             connection.sendAction("special2");
             break;
