@@ -1,5 +1,7 @@
 "use strict";
 
+var comVersion = "0.1";
+
 var game = new Kiwi.Game(null, "Hello World", null, { renderer: Kiwi.RENDERER_CANVAS });
 var myState = new Kiwi.State("myState");
 
