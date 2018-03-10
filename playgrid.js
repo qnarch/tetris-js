@@ -22,6 +22,8 @@ function PlayGrid (state){
 
     this.grid = [];
 
+    this.gameOver = false;
+
     this.time = new Date().getTime();
 
     for (let i=0;i<this.sizeX;i+=1) {
@@ -71,6 +73,7 @@ PlayGrid.prototype.update = function() {
                         for (let k=0;k<this.grid.length;k+=1) {
                             if (this.grid[k][0] == 2) {
                                 console.log("GAME OVER");
+                                this.gameOver = true;
                             }
                         }
                         //this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);

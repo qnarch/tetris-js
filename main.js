@@ -95,6 +95,8 @@ myState.create = function(){
     }
     connection.sendAction("set_name", name);
 
+    connection.sendAction("start_game", true);
+
 };
 
 myState.update = function(){
@@ -104,6 +106,11 @@ myState.update = function(){
 
     //update game logic
     playGrid.update();
+
+    if(playGrid.gameOver)
+    {
+        connection.sendAction("end_game", true);
+    }
 
     //draw
     for (let i=0;i<playGrid.sizeX;i+=1) {
