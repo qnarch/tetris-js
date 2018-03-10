@@ -4,6 +4,7 @@ var comVersion = "0.1";
 
 var game = new Kiwi.Game(null, "Hello World", null, { renderer: Kiwi.RENDERER_CANVAS });
 var myState = new Kiwi.State("myState");
+var name = "";
 
 var playGrid = new PlayGrid(myState);
 
@@ -87,6 +88,13 @@ myState.create = function(){
             this.addChild(this.blocksArray[i][j]);
         }
     }
+
+    while(!name)
+    {
+        name = prompt("Please enter your name", "Player");
+    }
+    connection.sendAction("set_name", name);
+
 };
 
 myState.update = function(){
