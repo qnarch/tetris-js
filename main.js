@@ -21,7 +21,7 @@ connection.onopen = function (event) {
 * @see {@link https://knark.io/tetrisslinger-docs/com.html} for further information.
 */
 connection.sendAction = function(typeStr, valueStr) {
-    var msgDict = { "version":comVersion, "type":typeStr "value":valueStr };
+    var msgDict = { "version":comVersion, "type":typeStr, "value":valueStr };
     var msg = JSON.stringify(msgDict);
     this.send(msg);
 };
