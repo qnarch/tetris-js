@@ -112,6 +112,11 @@ myState.update = function(){
         connection.sendAction("end_game", true);
     }
 
+    if(playGrid.waitForActiveShape)
+    {
+        connection.sendAction("get_active_block", true);
+    }
+
     //draw
     for (let i=0;i<playGrid.sizeX;i+=1) {
         for (let j=0;j<playGrid.sizeY;j+=1) {

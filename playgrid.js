@@ -23,6 +23,7 @@ function PlayGrid (state){
     this.grid = [];
 
     this.gameOver = false;
+    this.waitForActiveShape = false;
 
     this.time = new Date().getTime();
 
@@ -77,7 +78,8 @@ PlayGrid.prototype.update = function() {
                             }
                         }
                         //this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);
-			this.resetActiveShape("S-block");
+			//this.resetActiveShape("S-block");
+                        this.waitForActiveShape = true;
                     }
                 }
             }
@@ -123,6 +125,7 @@ PlayGrid.prototype.resetActiveShape = function(shapeStr) {
     this.activeShape = new Shape(this.state, shapeStr);
     this.activePosX = 3;
     this.activePosY = 0;
+    this.waitForActiveShape = true;
 }
 
 /*
