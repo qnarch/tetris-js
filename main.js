@@ -40,11 +40,11 @@ connection.onmessage = function(e){
 
     switch(message.response_type) {
         case "board":
-            playGrid.resetActiveShape(message.value);
+            playGrid.setBoard(message.value);
             break;
         
         case "active_block":
-            playGrid.setBoard(message.value);
+            playGrid.resetActiveShape(message.value);
             break;
     }
 };
