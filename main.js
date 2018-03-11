@@ -54,12 +54,18 @@ myState.preload = function(){
     Kiwi.State.prototype.preload.call(this);
     this.addImage("bg","bg.png");
     this.addImage("fg","fg.png");
+
+    for(let i=0; i<powerupNames.length; i+=1)
+    {
+        this.addImage(powerupNames[i], "icons/powerup" + powerupNames[i] + ".png");
+    }
+
     this.leftKey = Kiwi.Input.Keycodes.LEFT;
     this.rightKey = Kiwi.Input.Keycodes.RIGHT;
     this.upKey = Kiwi.Input.Keycodes.UP;
     this.downKey = Kiwi.Input.Keycodes.DOWN;
     this.spaceKey = Kiwi.Input.Keycodes.SPACEBAR;
-    this.special1Key = Kiwi.Input.Keycodes.ONE;
+    this.specialKey = Kiwi.Input.Keycodes.A;
 /*
     this.special2Key = Kiwi.Input.Keycodes.TWO;
     this.special3Key = Kiwi.Input.Keycodes.THREE;
