@@ -47,6 +47,10 @@ connection.onmessage = function(e){
         case "active_block":
             playGrid.resetActiveShape(message.value);
             break;
+
+        case "queued_powerup":
+            myState.queuedPowerup = new Powerup(this.state, message.value);
+            break;
     }
 };
 
@@ -103,6 +107,10 @@ myState.create = function(){
 
     connection.sendAction("start_game", true);
 
+    this.queuedPowerup = new Powerup(this.state, "Shotgun");
+    this.powerupSprite = new Kiwi.GameObjects.StaticImage(this, this.textures[this.queuedPowerup.name], 100, 500 );
+    this.addChild(this.powerupSprite);
+
 };
 
 myState.update = function(){
@@ -134,6 +142,9 @@ myState.update = function(){
             }
         }
     }
+
+    this.powerupSprite.atlas = this.textures[this.queuedPowerup.name];
+
 };
 
 myState.onPress = function(keyCode) {
@@ -158,6 +169,7 @@ myState.onPress = function(keyCode) {
             break;
         case this.specialKey:
             connection.sendAction("use_queued_powerup, true");
+            connection.sendAction("get_queued_powerup", true);
             break;
 /*
         case this.special2Key:

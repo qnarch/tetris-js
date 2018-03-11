@@ -66,6 +66,7 @@ PlayGrid.prototype.update = function() {
                                             this.grid[n][m] = this.grid[n][m-1]
                                         }
                                     }
+                                    connection.sendAction("get_queued_powerup", true);
                                 }
                             }
                         }
@@ -125,7 +126,7 @@ PlayGrid.prototype.resetActiveShape = function(shapeStr) {
     this.activeShape = new Shape(this.state, shapeStr);
     this.activePosX = 3;
     this.activePosY = 0;
-    this.waitForActiveShape = true;
+    this.waitForActiveShape = false;
 }
 
 /*
