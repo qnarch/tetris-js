@@ -12,7 +12,6 @@ function Powerup (state, name){
     
     if (!powerupNames.includes(name))
     {
-        alert("AAAAAA!");
         throw name + " is not an available power-up! (See powerup.js)";
     }
 
