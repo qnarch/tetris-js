@@ -34,7 +34,7 @@ function PlayGrid (state){
         }
     }
 
-    this.activeShape = new Shape(this.state, "I-block");
+    this.activeShape = new Shape(this.state, "I-shape");
     this.fillOutActiveShape(1);
 }
 
@@ -79,7 +79,7 @@ PlayGrid.prototype.update = function() {
                             }
                         }
                         //this.resetActiveShape(Math.floor(Math.random() * (6 - 0 + 1)) + 0);
-			//this.resetActiveShape("S-block");
+			//this.resetActiveShape("S-shape");
                         this.waitForActiveShape = true;
                     }
                 }
@@ -120,7 +120,7 @@ PlayGrid.prototype.setBoard = function(currentBoard) {
 /*
 * Set the active shape of this PlayGrid and reset it's position to the top center.
 * @param {String} shapeStr - A key representing the shape to be created. Accepted values:
-*    "I-block", "T-block", "L-block", "RevL-block", "Z-block", "RevZ-block", "S-block".
+*    "I-shape", "T-shape", "L-shape", "RevL-shape", "Z-shape", "RevZ-shape", "S-shape".
 */
 PlayGrid.prototype.resetActiveShape = function(shapeStr) {
     this.activeShape = new Shape(this.state, shapeStr);

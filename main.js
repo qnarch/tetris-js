@@ -44,7 +44,7 @@ connection.onmessage = function(e){
             playGrid.setBoard(message.value);
             break;
         
-        case "active_block":
+        case "active_shape":
             playGrid.resetActiveShape(message.value);
             break;
 
@@ -128,7 +128,7 @@ myState.update = function(){
 
     if(playGrid.waitForActiveShape)
     {
-        connection.sendAction("get_active_block", true);
+        connection.sendAction("get_active_shape", true);
     }
 
     //draw
@@ -151,21 +151,21 @@ myState.onPress = function(keyCode) {
     switch (keyCode) {
         case this.leftKey:
             playGrid.updateActivePos(-1,0);
-            connection.sendAction("move_active_block", "left");
+            connection.sendAction("move_active_shape", "left");
             break;
         case this.rightKey:
             playGrid.updateActivePos(1,0);
-            connection.sendAction("move_active_block", "right");
+            connection.sendAction("move_active_shape", "right");
             break;
         case this.upKey:
-            connection.sendAction("move_active_block", "rotate");
+            connection.sendAction("move_active_shape", "rotate");
             playGrid.rotateActiveShape();
             break;
         case this.downKey:
-            connection.sendAction("move_active_block", "down");
+            connection.sendAction("move_active_shape", "down");
             break;
         case this.spaceKey:
-            connection.sendAction("move_active_block", "hard_drop");
+            connection.sendAction("move_active_shape", "hard_drop");
             break;
         case this.specialKey:
             connection.sendAction("use_queued_powerup", true);

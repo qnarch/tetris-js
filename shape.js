@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * @file Here is the definitions of all the possible blocks and a definition of the shape prototype. The rotation is counter-clockwise.
+ * @file Here is the definitions of all the possible shapes and a definition of the shape prototype. The rotation is counter-clockwise.
  * @author Alexander Hjelm <alexander-hjelm@tutanota.com>
  */
 
@@ -120,13 +120,13 @@ squareRot1[0] = [0, 1, 1];
 squareRot1[1] = [0, 1, 1];
 squareRot1[2] = [0, 0, 0];
 
-possibleShapes["I-block"] = iShape;
-possibleShapes["T-block"] = tShape;
-possibleShapes["L-block"] = lShape;
-possibleShapes["RevL-block"] = lprimeShape;
-possibleShapes["Z-block"] = zShape;
-possibleShapes["RevZ-block"] = zprimeShape;
-possibleShapes["S-block"] = sqaureShape;
+possibleShapes["I-shape"] = iShape;
+possibleShapes["T-shape"] = tShape;
+possibleShapes["L-shape"] = lShape;
+possibleShapes["RevL-shape"] = lprimeShape;
+possibleShapes["Z-shape"] = zShape;
+possibleShapes["RevZ-shape"] = zprimeShape;
+possibleShapes["S-shape"] = sqaureShape;
 
 iShape[0] = iRot1;
 iShape[1] = iRot2;
@@ -158,7 +158,7 @@ sqaureShape[0] = squareRot1;
 * Create a shape.
 * @param {Kiwi.State} state - The game state variable.
 * @param {String} shapeStr - A key representing the shape to be created. Accepted values:
-*    "I-block", "T-block", "L-block", "RevL-block", "Z-block", "RevZ-block", "S-block".
+*    "I-shape", "T-shape", "L-shape", "RevL-shape", "Z-shape", "RevZ-shape", "S-shape".
 */
 function Shape (state, shapeStr) {
     this.state = state;
