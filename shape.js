@@ -1,16 +1,12 @@
 "use strict";
 
 /**
-shape.js
-
-Here is the definitions of all the possible blocks and a definition
-of the shape prototype. The rotation is *anticlockwise*.
-
-*/
-
+ * @file Here is the definitions of all the possible shapes and a definition of the shape prototype. The rotation is counter-clockwise.
+ * @author Alexander Hjelm <alexander-hjelm@tutanota.com>
+ */
 
 //Shape definitions
-const possibleShapes = [];
+const possibleShapes = {};
 const iShape = [];
 const tShape = [];
 const lShape = [];
@@ -96,7 +92,7 @@ lprimeRot4[0] = [0, 0, 1];
 lprimeRot4[1] = [0, 0, 1];
 lprimeRot4[2] = [0, 1, 1];
 
-//A 'z' shape, and all rotations
+//A 'Z' shape, and all rotations
 const zRot1 = [];
 zRot1[0] = [0, 0, 0];
 zRot1[1] = [1, 1, 0];
@@ -107,7 +103,7 @@ zRot2[0] = [0, 0, 1];
 zRot2[1] = [0, 1, 1];
 zRot2[2] = [0, 1, 0];
 
-//A mirrored 'z' shape, and all rotations
+//A mirrored 'Z' shape, and all rotations
 const zprimeRot1 = [];
 zprimeRot1[0] = [0, 0, 0];
 zprimeRot1[1] = [0, 1, 1];
@@ -118,19 +114,19 @@ zprimeRot2[0] = [1, 0, 0];
 zprimeRot2[1] = [1, 1, 0];
 zprimeRot2[2] = [0, 1, 0];
 
-//A 'square' shape, and all rotations
+//A square shape, and all rotations
 const squareRot1 = [];
 squareRot1[0] = [0, 1, 1];
 squareRot1[1] = [0, 1, 1];
 squareRot1[2] = [0, 0, 0];
 
-possibleShapes[0] = iShape;
-possibleShapes[1] = tShape;
-possibleShapes[2] = lShape;
-possibleShapes[3] = lprimeShape;
-possibleShapes[4] = zShape;
-possibleShapes[5] = zprimeShape;
-possibleShapes[6] = sqaureShape;
+possibleShapes["I-shape"] = iShape;
+possibleShapes["T-shape"] = tShape;
+possibleShapes["L-shape"] = lShape;
+possibleShapes["RevL-shape"] = lprimeShape;
+possibleShapes["Z-shape"] = zShape;
+possibleShapes["RevZ-shape"] = zprimeShape;
+possibleShapes["S-shape"] = sqaureShape;
 
 iShape[0] = iRot1;
 iShape[1] = iRot2;
@@ -158,21 +154,32 @@ zprimeShape[1] = zprimeRot2;
 
 sqaureShape[0] = squareRot1;
 
-
-function Shape (state, shapeIndex) {
+/*
+* Create a shape.
+* @param {Kiwi.State} state - The game state variable.
+* @param {String} shapeStr - A key representing the shape to be created. Accepted values:
+*    "I-shape", "T-shape", "L-shape", "RevL-shape", "Z-shape", "RevZ-shape", "S-shape".
+*/
+function Shape (state, shapeStr) {
     this.state = state;
-    this.shape = possibleShapes[shapeIndex];
+    this.shape = possibleShapes[shapeStr];
     this.currentRot = 0;
     this.table = this.shape[0];
 }
 
+/**
+* Rotate this shape by 90 degrees counter-clockwise.
+*/
 Shape.prototype.rotate = function () {
     var nextIndex = this.getNextRotIndex();
-
     this.table = this.shape[nextIndex];
     this.currentRot = nextIndex;
 };
 
+/**
+* Return the index of the next rotation matrix permutation of this shape.
+* @return {int} Index of the next rotation matrix.
+*/
 Shape.prototype.getNextRotIndex = function () {
     return ( this.currentRot + 1 ) % this.shape.length; //x = (x+1) % {number of rotations}
 };
