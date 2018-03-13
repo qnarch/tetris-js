@@ -103,6 +103,8 @@ myState.create = function(){
     {
         name = prompt("Please enter your name", "Player");
     }
+    this.nameText = new Kiwi.GameObjects.TextField(this, name, 270, 10);
+    this.addChild(this.nameText);
     connection.sendAction("set_name", name);
 
     connection.sendAction("start_game", true);
