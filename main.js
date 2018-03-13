@@ -168,7 +168,7 @@ myState.onPress = function(keyCode) {
             connection.sendAction("move_active_block", "hard_drop");
             break;
         case this.specialKey:
-            connection.sendAction("use_queued_powerup, true");
+            connection.sendAction("use_queued_powerup", true);
             connection.sendAction("get_queued_powerup", true);
             break;
 /*
