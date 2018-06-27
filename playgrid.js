@@ -23,7 +23,7 @@ function PlayGrid (state){
     this.grid = [];
 
     this.gameOver = false;
-    this.waitForActiveShape = false;
+    this.waitForActiveShape = true;
 
     this.time = new Date().getTime();
 
@@ -34,15 +34,15 @@ function PlayGrid (state){
         }
     }
 
-    this.activeShape = new Shape(this.state, "I-shape");
-    this.fillOutActiveShape(1);
+    //this.activeShape = new Shape(this.state, "I-shape");
+    //this.fillOutActiveShape(1);
 }
 
 /*
 * Main update function. This function is called on every frame.
 */
 PlayGrid.prototype.update = function() {
-    if(new Date().getTime() > this.time + 300) {
+    if(this.activeShape && new Date().getTime() > this.time + 300) {
 
         for (let i=0;i<this.activeShape.table.length;i+=1) {
             for (let j=0;j<this.activeShape.table[i].length;j+=1) {
