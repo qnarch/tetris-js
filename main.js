@@ -54,7 +54,15 @@ connection.onmessage = function(e){
     }
 };
 
+/*
+* A preload function which is used by Kiwi to initialise resources and
+* controls used by the library.
+*/
+
 myState.preload = function(){
+    /*
+     * Initialise image resources
+     */
     Kiwi.State.prototype.preload.call(this);
     this.addImage("bg","bg.png");
     this.addImage("fg","fg.png");
@@ -64,11 +72,17 @@ myState.preload = function(){
         this.addImage(powerupNames[i], "icons/powerup" + powerupNames[i] + ".png");
     }
 
+    /*
+     * Controls used by the player
+     */
+
     this.leftKey = Kiwi.Input.Keycodes.LEFT;
     this.rightKey = Kiwi.Input.Keycodes.RIGHT;
     this.upKey = Kiwi.Input.Keycodes.UP;
     this.downKey = Kiwi.Input.Keycodes.DOWN;
     this.spaceKey = Kiwi.Input.Keycodes.SPACEBAR;
+
+    // Reserved for powerups
     this.specialKey = Kiwi.Input.Keycodes.A;
 /*
     this.special2Key = Kiwi.Input.Keycodes.TWO;
@@ -80,16 +94,18 @@ myState.preload = function(){
 
 };
 
+/*
+ * This function creates the game by creating the playing grid and
+ * starts an instance with the server.
+ */
+
 myState.create = function(){
     Kiwi.State.prototype.create.call(this);
-                //this.logo = new Kiwi.GameObjects.StaticImage(this, this.textures["logo"], 100, 100);
-                //this.secondlogo = new Kiwi.GameObjects.StaticImage(this, this.textures["logo"], 200, 300);
-                //this.addChild(this.logo);
-                //this.addChild(this.secondlogo);
 
-    //Attach callback to be executed when a key is pressed.
+    // Attach callback to be executed when a key is pressed.
     this.game.input.keyboard.onKeyDown.add(myState.onPress, this);
 
+    // Create the playing grid
     this.blocksArray = [];
     for (let i=0;i<playGrid.sizeX;i+=1) {
         this.blocksArray[i] = [];
@@ -99,41 +115,49 @@ myState.create = function(){
         }
     }
 
+    // Ask the player's name
     while(!name)
     {
         name = prompt("Please enter your name", "Player");
     }
     this.nameText = new Kiwi.GameObjects.TextField(this, name, 270, 10);
     this.addChild(this.nameText);
-    connection.sendAction("set_name", name);
 
+    // Send the player details to the server and tell it to start a game
+    connection.sendAction("set_name", name);
     connection.sendAction("start_game", true);
 
+    // Create a reference to the player's next powerup and add its sprite
     this.queuedPowerup = new Powerup(this.state, "Shotgun");
+
+    // TODO create powerup sprites in myState.preload instead
     this.powerupSprite = new Kiwi.GameObjects.StaticImage(this, this.textures[this.queuedPowerup.name], 100, 500 );
     this.addChild(this.powerupSprite);
 
 };
 
+/*
+ * The update function. Updates the game logic as well as rendering
+ * the blocks.
+ */
+
 myState.update = function(){
     Kiwi.State.prototype.update.call(this);
-    //this.logo.rotation += 2;
-    //this.secondlogo.rotation += -1
 
-    //update game logic
+    // Update game logic
     playGrid.update();
 
-    if(playGrid.gameOver)
-    {
+    // TODO remove this, end_game should be sent by the server
+    if (playGrid.gameOver) {
         connection.sendAction("end_game", true);
     }
 
-    if(playGrid.waitForActiveShape)
-    {
+    // TODO don't ask for active shape when you are waiting for one!
+    if (playGrid.waitForActiveShape) {
         connection.sendAction("get_active_shape", true);
     }
 
-    //draw
+    // Render the blocks
     for (let i=0;i<playGrid.sizeX;i+=1) {
         for (let j=0;j<playGrid.sizeY;j+=1) {
             if (playGrid.grid[i][j] == 0) {
@@ -148,6 +172,10 @@ myState.update = function(){
     this.powerupSprite.atlas = this.textures[this.queuedPowerup.name];
 
 };
+
+/*
+ * The function which binds keys to actions.
+ */
 
 myState.onPress = function(keyCode) {
     switch (keyCode) {
