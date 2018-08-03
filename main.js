@@ -8,10 +8,10 @@ var name = "";
 
 var playGrid = new PlayGrid(myState);
 
-var connection = new WebSocket("ws://localhost:12345");
+var connection = new WebSocket("ws://localhost:7441");
 connection.onopen = function (event) {
-    //window.alert("Connected to server!");
-    connection.send("Client connected!");
+    window.alert("Connected to server!");
+    //connection.send("Client connected!");
 };
 
 /*
@@ -31,7 +31,7 @@ connection.sendAction = function(typeStr, valueStr) {
 * @param {Event} e
 */
 connection.onmessage = function(e){
-    //window.alert(e.data);
+    window.alert(e.data);
     var server_message = e.data;
     var message = JSON.parse(server_message);
 
