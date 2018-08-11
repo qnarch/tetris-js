@@ -7,7 +7,7 @@
 
 var powerupNames = ["AddRow", "Earthquake", "Milkshake", "RemovePow", "Shotgun", "Gravity", "ClearBoard", "SwitchBoard"];
 
-function Powerup (state, name){
+function Powerup(state, name) {
     this.state = state;
     
     if (!powerupNames.includes(name))
