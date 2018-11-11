@@ -27,9 +27,9 @@ function PlayGrid (state){
 
     this.time = new Date().getTime();
 
-    for (let i=0;i<this.sizeX;i+=1) {
+    for (let i=0;i<this.sizeY;i+=1) {
         this.grid[i] = [];
-        for (let j=0;j<this.sizeY;j+=1) {
+        for (let j=0;j<this.sizeX;j+=1) {
             this.grid[i][j] = 0;
         }
     }
@@ -99,9 +99,9 @@ PlayGrid.prototype.update = function() {
 */
 PlayGrid.prototype.setBoard = function(currentBoard) {
 
-    for (let i=0;i<this.sizeX;i+=1) {
+    for (let i=0;i<this.sizeY;i+=1) {
         this.grid[i] = [];
-        for (let j=0;j<this.sizeY;j+=1) {
+        for (let j=0;j<this.sizeX;j+=1) {
             this.grid[i][j] = currentBoard[i][j];
         }
     }

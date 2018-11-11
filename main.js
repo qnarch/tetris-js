@@ -112,10 +112,10 @@ myState.create = function(){
 
     // Create the playing grid
     this.blocksArray = [];
-    for (let i=0;i<playGrid.sizeX;i+=1) {
+    for (let i=0;i<playGrid.sizeY;i+=1) {
         this.blocksArray[i] = [];
-        for (let j=0;j<playGrid.sizeY;j+=1) {
-            this.blocksArray[i][j] = new Kiwi.GameObjects.StaticImage(this, this.textures["bg"], 10 + i*24, 10 + j*24);
+        for (let j=0;j<playGrid.sizeX;j+=1) {
+            this.blocksArray[i][j] = new Kiwi.GameObjects.StaticImage(this, this.textures["bg"], 10 + j*24, 10 + i*24);
             this.addChild(this.blocksArray[i][j]);
         }
     }
@@ -167,8 +167,8 @@ myState.update = function(){
 */
 
     // Render the blocks
-    for (let i=0;i<playGrid.sizeX;i+=1) {
-        for (let j=0;j<playGrid.sizeY;j+=1) {
+    for (let i=0;i<playGrid.sizeY;i+=1) {
+        for (let j=0;j<playGrid.sizeX;j+=1) {
             if (playGrid.grid[i][j] == 0) {
                 this.blocksArray[i][j].atlas = this.textures["bg"];
             }
