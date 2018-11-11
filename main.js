@@ -51,6 +51,8 @@ connection.onmessage = function(e){
         case "queued_powerup":
             myState.queuedPowerup = new Powerup(this.state, message.value);
             break;
+        default:
+            console.error("Error: server message type not recognized: " + message.response_type);
     }
 };
 
