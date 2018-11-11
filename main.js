@@ -43,11 +43,11 @@ connection.onmessage = function(e){
         case "board":
             playGrid.setBoard(message.value);
             break;
-        
+/*
         case "active_shape":
             playGrid.resetActiveShape(message.value);
             break;
-
+*/
         case "queued_powerup":
             myState.queuedPowerup = new Powerup(this.state, message.value);
             break;
@@ -145,17 +145,21 @@ myState.update = function(){
     Kiwi.State.prototype.update.call(this);
 
     // Update game logic
-    playGrid.update();
+    //playGrid.update();
 
     // TODO remove this, end_game should be sent by the server
+    /*
     if (playGrid.gameOver) {
         connection.sendAction("end_game", true);
     }
+    */
 
+/*
     // TODO don't ask for active shape when you are waiting for one!
     if (playGrid.waitForActiveShape) {
         connection.sendAction("get_active_shape", true);
     }
+*/
 
     // Render the blocks
     for (let i=0;i<playGrid.sizeX;i+=1) {
@@ -180,16 +184,16 @@ myState.update = function(){
 myState.onPress = function(keyCode) {
     switch (keyCode) {
         case this.leftKey:
-            playGrid.updateActivePos(-1,0);
+            //playGrid.updateActivePos(-1,0);
             connection.sendAction("move_active_shape", "left");
             break;
         case this.rightKey:
-            playGrid.updateActivePos(1,0);
+            //playGrid.updateActivePos(1,0);
             connection.sendAction("move_active_shape", "right");
             break;
         case this.upKey:
             connection.sendAction("move_active_shape", "rotate");
-            playGrid.rotateActiveShape();
+            //playGrid.rotateActiveShape();
             break;
         case this.downKey:
             connection.sendAction("move_active_shape", "down");
@@ -222,4 +226,3 @@ myState.onPress = function(keyCode) {
 };
 
 game.states.addState(myState, true);
-

@@ -40,7 +40,7 @@ function PlayGrid (state){
 
 /*
 * Main update function. This function is called on every frame.
-*/
+*//*
 PlayGrid.prototype.update = function() {
     if(this.activeShape && new Date().getTime() > this.time + 300) {
 
@@ -90,7 +90,7 @@ PlayGrid.prototype.update = function() {
         this.time = new Date().getTime();
     }
 }
-
+*/
 /*
 * Copy a board to this PlayGrid.
 * @param {int[][]} currentBoard - A 2D array where the element are integer representations of
@@ -98,14 +98,14 @@ PlayGrid.prototype.update = function() {
 *     2 = Filled Square.
 */
 PlayGrid.prototype.setBoard = function(currentBoard) {
-    
+
     for (let i=0;i<this.sizeX;i+=1) {
         this.grid[i] = [];
         for (let j=0;j<this.sizeY;j+=1) {
             this.grid[i][j] = currentBoard[i][j];
         }
     }
-    
+
     /*
     for (let i=0;i<this.sizeX;i+=1) {
         this.grid[i] = [];
@@ -114,27 +114,27 @@ PlayGrid.prototype.setBoard = function(currentBoard) {
         }
     }
     */
-    this.fillOutActiveShape(1);
+    //this.fillOutActiveShape(1);
 }
 
 /*
 * Set the active shape of this PlayGrid and reset it's position to the top center.
 * @param {String} shapeStr - A key representing the shape to be created. Accepted values:
 *    "I-shape", "T-shape", "L-shape", "RevL-shape", "Z-shape", "RevZ-shape", "S-shape".
-*/
+*//*
 PlayGrid.prototype.resetActiveShape = function(shapeStr) {
     this.activeShape = new Shape(this.state, shapeStr);
     this.activePosX = 3;
     this.activePosY = 0;
     this.waitForActiveShape = false;
 }
-
+*/
 /*
 * Set the (relative) position of active shape. Collision check is done internally,
 *     and the position will not be updated if it would have triggered a collision.
 * @param {int} deltaX - The x-coordinate of the movement vector.
 * @param {int} deltaY - The y-coordinate of the movement vector.
-*/
+*//*
 PlayGrid.prototype.updateActivePos = function(deltaX, deltaY) {
     //Collision check
     if (this.checkCollision(deltaX, deltaY, this.activeShape.table)) { return; }
@@ -144,10 +144,10 @@ PlayGrid.prototype.updateActivePos = function(deltaX, deltaY) {
     this.activePosY = this.activePosY + deltaY;
     this.fillOutActiveShape(1);
 }
-
+*/
 /*
 * Rotate the active shape by 90 degrees counter-clockwise
-*/
+*//*
 PlayGrid.prototype.rotateActiveShape = function() {
 
     //Collision check
@@ -158,13 +158,13 @@ PlayGrid.prototype.rotateActiveShape = function() {
     this.activeShape.rotate();
     this.fillOutActiveShape(1);
 }
-
+*/
 /*
 * Set the (relative) position of active shape. Collision check is done internally,
 *     and the position will not be updated if it would have triggered a collision.
 * @param {int} deltaX - The x-coordinate of the movement vector.
 * @param {int} deltaY - The y-coordinate of the movement vector.
-*/
+*//*
 PlayGrid.prototype.fillOutActiveShape  = function(int) {
     for (let i=0;i<this.activeShape.table.length;i+=1) {
         for (let j=0;j<this.activeShape.table[i].length;j+=1) {
@@ -176,7 +176,7 @@ PlayGrid.prototype.fillOutActiveShape  = function(int) {
         }
     }
 }
-
+*/
 /*
 * Check if the desired transformation of the active shape would imply a collision
 *     with the horisontal walls or any static squares.
@@ -186,7 +186,7 @@ PlayGrid.prototype.fillOutActiveShape  = function(int) {
 *     the active shape is not rotating, simply pass the current rotation matrix
 *     of the active shape.
 * @return {bool} If true, the desired transformation will trigger a collision.
-*/
+*//*
 PlayGrid.prototype.checkCollision = function(deltaX, deltaY, nextTable) {
     for (let i=0;i<nextTable.length;i+=1) {
         for (let j=0;j<nextTable[i].length;j+=1) {
@@ -203,7 +203,7 @@ PlayGrid.prototype.checkCollision = function(deltaX, deltaY, nextTable) {
 
     return false;
 }
-
+*/
 /*
 * Get the integer value stored in a point on the Board.
 * @param {int} i - The x-coordinate.
