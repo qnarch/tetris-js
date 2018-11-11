@@ -31,7 +31,7 @@ connection.sendAction = function(typeStr, valueStr) {
 * @param {Event} e
 */
 connection.onmessage = function(e){
-    window.alert(e.data);
+    console.log("[SERVER MESSAGE] " + e.data);
     var server_message = e.data;
     var message = JSON.parse(server_message);
 
